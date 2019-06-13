@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <definitions name="Users"
-             targetNamespace="http://soap.local/"
+             targetNamespace="http://tc.geeksforless.net/~user1/GFL-Client-Server-SOAP/"
              xmlns="http://schemas.xmlsoap.org/wsdl/"
              xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
              xmlns:tns="http://www.examples.com/wsdl/HelloService.wsdl"
@@ -52,7 +52,7 @@
 
     <service name="UserService">
         <port name="UserPort" binding="Binding">
-            <soap:address location="http://soap.local/server/server.php"/>
+            <soap:address location="http://tc.geeksforless.net/~user1/GFL-Client-Server-SOAP/server/server.php"/>
         </port>
     </service>
 </definitions>

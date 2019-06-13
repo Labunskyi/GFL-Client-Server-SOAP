@@ -1,5 +1,5 @@
 <?php
-$client = new SoapClient("http://soap.local/users.wsdl", array('cache_wsdl' => WSDL_CACHE_NONE));
+$client = new SoapClient("http://tc.geeksforless.net/~user1/GFL-Client-Server-SOAP/users.wsdl", array('cache_wsdl' => WSDL_CACHE_NONE));
 try {
     $result = $client->getUsers();
 }catch (SoapFault $e) {
@@ -29,10 +29,11 @@ try {
             <?php
                 if(count($result->item) == 1) {
                     $oneItem = $result->item->item;
+                    print_r($oneItem);
                     echo "<tr>";
                     foreach ($oneItem as $item) {
                         echo "<td>";
-                        echo $item;
+                        echo($item->name);
                         echo "</td>";
                     }
                     echo "</tr>";

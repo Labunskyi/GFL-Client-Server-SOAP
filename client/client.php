@@ -16,7 +16,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $userType = treatment($_POST['userType']);
 }
 
-$client = new SoapClient("http://soap.local/users.wsdl", array('cache_wsdl' => WSDL_CACHE_NONE));
+$client = new SoapClient("http://tc.geeksforless.net/~user1/GFL-Client-Server-SOAP/users.wsdl", array('cache_wsdl' => WSDL_CACHE_NONE));
 try {
     $result = $client->setData($name, $password, $email, $userType);
     echo "<p style='text-align: center;'>".$result."</p>";

@@ -4,9 +4,9 @@ class registerUsers {
 
         $dbInfo = array(
             'host' => 'localhost',
-            'user' => 'root',
-            'pass' => '',
-            'database' => 'users'
+            'user' => 'user1',
+            'pass' => 'user1',
+            'database' => 'user1'
         );
 
         if(empty($name) || empty($password) || empty($email) || empty($userType)) {
@@ -19,9 +19,9 @@ class registerUsers {
         $email = htmlspecialchars(trim($email));
         $userType = htmlspecialchars(trim($userType));
 
-        $connect = mysqli_connect($dbInfo['host'], $dbInfo['user'], $dbInfo['pass'], $dbInfo['database']) or die(mysqli_error());
-        $sqlQuery = "INSERT INTO users (name, password, email, userType) VALUES ('$name', '$password', '$email', '$userType')";
-        $result = mysqli_query($connect, $sqlQuery) or die(mysqli_error());
+        $this->connect = new PDO ("mysql:host=localhost;dbname=user1;charset=utf8", 'user1', 'user1') ;
+        $sqlQuery = "INSERT INTO users_soap (name, password, email, userType) VALUES ('$name', '$password', '$email', '$userType')";
+        $result = $this->connect->query($sqlQuery) ;
         return "Success! All data sent to database!";
     }
 
@@ -29,25 +29,27 @@ class registerUsers {
 
         $dbInfo = array(
             'host' => 'localhost',
-            'user' => 'root',
-            'pass' => '',
-            'database' => 'users'
+            'user' => 'user1',
+            'pass' => 'user1',
+            'database' => 'user1'
         );
 
-        $connect = mysqli_connect($dbInfo['host'], $dbInfo['user'], $dbInfo['pass'], $dbInfo['database']) or die(mysqli_error());
-        $sqlQuery = "SELECT name, email, userType FROM users";
-        $result = mysqli_query($connect, $sqlQuery) or die(mysqli_error());
-        $resultArray = mysqli_fetch_all($result);
-
-        if(!$resultArray) {
-            throw new SoapFault("Server", "Not users!");
+        $this->connect = new PDO ("mysql:host=localhost;dbname=user1;charset=utf8", 'user1', 'user1') ;
+        $sqlQuery = "SELECT name, email, userType FROM users_soap";
+        $result = $this->connect->query($sqlQuery);    
+        
+        $resultArray = array ();
+		while ($row = $result->fetchAll(PDO::FETCH_OBJ) ) {
+			$resultArray[] = $row;
         }
+        
         return $resultArray;
+        
     }
 }
 
 //ini_set("soap.wsdl_cache_enabled", "0");
 
-$server = new SoapServer("http://soap.local/users.wsdl");
+$server = new SoapServer("http://tc.geeksforless.net/~user1/GFL-Client-Server-SOAP/users.wsdl");
 $server->setClass("registerUsers");
 $server->handle();
