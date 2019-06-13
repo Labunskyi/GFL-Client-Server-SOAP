@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions name="Users"
+             targetNamespace="http://soap.local/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns="http://www.examples.com/wsdl/HelloService.wsdl"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://schema.example.com">
+            <xsd:complexType name="resultArray">
+                <xsd:complexContent>
+                    <xsd:restriction base="SOAP-ENC:Array">
+                        <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="xsd:string[]" />
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+        </xsd:schema>
+    </wsdl:types>
+
+
+    <message name="getUsersResponse">
+        <part name="Result" type="tns:resultArray"/>
+    </message>
+
+    <message name="getDataRequest">
+        <part name="userType" type="xsd:string"/>
+        <part name="name" type="xsd:string"/>
+        <part name="password" type="xsd:string"/>
+        <part name="email" type="xsd:string"/>
+    </message>
+    <message name="getDataResponse">
+        <part name="Result" type="tns:string"/>
+    </message>
+
+    <portType name="PortType">
+        <operation name="getUsers">
+            <output message="tns:getUsersResponse"/>
+        </operation>
+        <operation name="setData">
+            <input message="tns:getDataRequest"/>
+            <output message="tns:getDataResponse"/>
+        </operation>
+    </portType>
+
+    <binding name="Binding" type="tns:PortType">
+        <operation name="getUsers"/>
+        <operation name="setData"/>
+    </binding>
+
+    <service name="UserService">
+        <port name="UserPort" binding="Binding">
+            <soap:address location="http://soap.local/server/server.php"/>
+        </port>
+    </service>
+</definitions>

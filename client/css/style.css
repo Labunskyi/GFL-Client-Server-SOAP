@@ -1,0 +1,85 @@
+body,div,dl,dt,dd,ul,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img,abbr{border:0;}address,caption,cite,code,dfn,em,strong,th,var {font-style:normal;font-weight:normal;}ul li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}sup{vertical-align:text-top;}sub{vertical-align:text-bottom;}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}legend{color:#000;}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {display:block;}
+* {
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+body {
+    background: no-repeat -webkit-linear-gradient(bottom, #cccccc, #ffffff); /* Safari 5.1, iOS 5.0-6.1, Chrome 10-25, Android 4.0-4.3 */
+    background: no-repeat -moz-linear-gradient(bottom, #cccccc, #ffffff); /* Firefox 3.6 - 15 */
+    background: no-repeat -o-linear-gradient(bottom, #cccccc, #ffffff); /* Opera 11.1 - 12 */
+    background: no-repeat linear-gradient(to bottom, #cccccc, #ffffff); /* Opera 15+, Chrome 25+, IE 10+, Firefox 16+, Safari 6.1+, iOS 7+, Android 4.4+ */
+}
+
+h1 {
+    font: 20px Verdana;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight:bold;
+}
+
+/*----------- Styles to main page -------------*/
+#add-user {
+    margin:0 auto;
+    padding-top:100px;
+    width:25%;
+}
+    #add-user input,
+    #add-user select{
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        height:40px;
+        font: 16px Verdana;
+        margin-top:5px;
+        outline: none;
+        padding-left:10px;
+        width:100%;
+    }
+
+    #add-user select,
+    #add-user input[type=submit]{
+        cursor: pointer;
+    }
+
+.link {
+    font:17px Verdana;
+    margin-bottom: 40px;
+    margin-top: 40px;
+    text-align: center;
+}
+
+/*-------------- Styles to users list page --------------*/
+.users-list {
+    width: 40%;
+    margin:0 auto;
+    font:15px Verdana;
+}
+
+    .users-list tr.thead {
+        background-color: #000000;
+        color: #ffffff;
+        height:40px;
+    }
+
+    .users-list tr {
+        height:50px;
+        border-bottom: 2px solid #000000;
+        cursor: pointer;
+    }
+
+    .users-list tr:not(.thead):nth-child(odd) {
+        background: #ccc;
+    }
+
+    .users-list tr:not(.thead):hover {
+        border-bottom-color: #aaa222;
+    }
+
+    .users-list tr td {
+        padding:10px;
+    }
+
+.error{
+    color: red;
+}
