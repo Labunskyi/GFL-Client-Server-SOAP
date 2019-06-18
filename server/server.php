@@ -1,41 +1,18 @@
 <?php
 class registerUsers {
-    function setData($name, $password, $email, $userType) {
+    function setData($brand, $model, $capacity, $year, $colour, $speed, $price) {
 
-        $dbInfo = array(
-            'host' => 'localhost',
-            'user' => 'user1',
-            'pass' => 'user1',
-            'database' => 'user1'
-        );
-
-        if(empty($name) || empty($password) || empty($email) || empty($userType)) {
-            throw new SoapFault("Server", "Error! You must send all fields.");
-            exit;
-        }
-
-        $name = htmlspecialchars(trim($name));
-        $password = md5(htmlspecialchars(trim($password)));
-        $email = htmlspecialchars(trim($email));
-        $userType = htmlspecialchars(trim($userType));
-
-        $this->connect = new PDO ("mysql:host=localhost;dbname=user1;charset=utf8", 'user1', 'user1') ;
-        $sqlQuery = "INSERT INTO users_soap (name, password, email, userType) VALUES ('$name', '$password', '$email', '$userType')";
+        $this->connect = new PDO ("mysql:host=localhost;dbname=users;charset=utf8", 'root', '') ;
+        $sqlQuery = "INSERT INTO car (brand, model, capacity, year, colour, speed, price) VALUES ('$brand', '$model', '$capacity', '$year',
+		'$colour', '$speed', '$price')";
         $result = $this->connect->query($sqlQuery) ;
         return "Success! All data sent to database!";
     }
 
     function getUsers() {
 
-        $dbInfo = array(
-            'host' => 'localhost',
-            'user' => 'user1',
-            'pass' => 'user1',
-            'database' => 'user1'
-        );
-
-        $this->connect = new PDO ("mysql:host=localhost;dbname=user1;charset=utf8", 'user1', 'user1') ;
-        $sqlQuery = "SELECT name, email, userType FROM users_soap";
+        $this->connect = new PDO ("mysql:host=localhost;dbname=users;charset=utf8", 'root', '') ;
+        $sqlQuery = "SELECT * FROM car";
         $result = $this->connect->query($sqlQuery);    
         
         $resultArray = array ();
@@ -48,8 +25,6 @@ class registerUsers {
     }
 }
 
-//ini_set("soap.wsdl_cache_enabled", "0");
-
-$server = new SoapServer("http://tc.geeksforless.net/~user1/GFL-Client-Server-SOAP/users.wsdl");
+$server = new SoapServer("http://gfl-client-server-soap.local/cars.wsdl");
 $server->setClass("registerUsers");
 $server->handle();

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<definitions name="Users"
-             targetNamespace="http://tc.geeksforless.net/~user1/GFL-Client-Server-SOAP/"
+<definitions name="Cars"
+             targetNamespace="http://gfl-client-server-soap.local/"
              xmlns="http://schemas.xmlsoap.org/wsdl/"
              xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
              xmlns:tns="http://www.examples.com/wsdl/HelloService.wsdl"
@@ -26,10 +26,13 @@
     </message>
 
     <message name="getDataRequest">
-        <part name="userType" type="xsd:string"/>
-        <part name="name" type="xsd:string"/>
-        <part name="password" type="xsd:string"/>
-        <part name="email" type="xsd:string"/>
+        <part name="brand" type="xsd:string"/>
+        <part name="model" type="xsd:string"/>
+		<part name="capacity" type="xsd:string"/>
+		<part name="year" type="xsd:string"/>
+		<part name="colour" type="xsd:string"/>
+		<part name="speed" type="xsd:string"/>
+		<part name="price" type="xsd:string"/>
     </message>
     <message name="getDataResponse">
         <part name="Result" type="tns:string"/>
@@ -52,7 +55,7 @@
 
     <service name="UserService">
         <port name="UserPort" binding="Binding">
-            <soap:address location="http://tc.geeksforless.net/~user1/GFL-Client-Server-SOAP/server/server.php"/>
+            <soap:address location="http://gfl-client-server-soap.local/server/server.php"/>
         </port>
     </service>
 </definitions>
