@@ -1,10 +1,33 @@
 <?php
-	
+function treatment($data) {
+    htmlspecialchars(stripslashes(trim($data)));
+    return $data;
+}
+if($_POST) {
+    
+    $brand = treatment($_POST['brand']);
+    $model = treatment($_POST['model']);
+    $capacity = treatment($_POST['capacity']);
+	$year = treatment($_POST['year']);
+	$colour = treatment($_POST['colour']);
+	$speed = treatment($_POST['speed']);
+	$price = treatment($_POST['price']);
+}
+
 $client = new SoapClient("http://gfl-client-server-soap.local/cars.wsdl", array('cache_wsdl' => WSDL_CACHE_NONE));
+
 try {
     $result = $client->getCars();
-
-}catch (SoapFault $e) {
+	$error = '';
+	if (isset($brand, $model, $capacity, $year, $colour, $speed, $price)) {
+		if (strlen($year) !== 0) {
+			$find = $client->findCar($brand, $model, $capacity, $year, $colour, $speed, $price);
+			
+		} else { $error = "Error! Fill the year field please"; }
+	}
+	
+	
+} catch (SoapFault $e) {
     echo "<p style='text-align: center;padding-top: 30px;font: 25px Verdana;'>".$e->getMessage()."</p>";
 
 }
@@ -67,6 +90,9 @@ try {
 		<div class="form-group">
 			<input type="text" class="form-control" name="year" placeholder="Year">
 		</div>
+		<div style="color: red;">
+			<?=$error?>
+		</div>
 		<div class="form-group">
 			<input type="text" class="form-control" name="colour" placeholder="Colour">
 		</div>
@@ -81,6 +107,36 @@ try {
 		</div>
     </form>
 		
+	<table class="table table-bordered">
+		<thead class="thead-dark">
+			<tr>
+				<th>Brand</th>	
+				<th>Model</th>
+				<th>Year</th>
+				<th>Capacity</th>
+				<th>Colour</th>
+				<th>Speed</th>
+				<th>Price</th>
+			</tr>
+		</thead>
+		<?php if (isset($find)) {
+			foreach ($find as $res) {
+				foreach ($res as $r) { ?>
+					<tr>
+						<td><?=$r->Brand?></td>
+						<td><?=$r->Model?></td>
+						<td><?=$r->Year?></td>
+						<td><?=$r->Capacity?></td>
+						<td><?=$r->Colour?></td>
+						<td><?=$r->Speed?></td>
+						<td><?=$r->Price?>$</td>
+					</tr>
+			<?php	}
+			}
+		}
+		?>
+
+		</table>
     </div>
 </body>
 </html>

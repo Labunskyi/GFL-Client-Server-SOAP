@@ -5,7 +5,6 @@ function treatment($data) {
 }
 if($_POST) {
     
-	$id = $_POST['id'];
     $brand = treatment($_POST['brand']);
     $model = treatment($_POST['model']);
     $capacity = treatment($_POST['capacity']);
@@ -21,8 +20,8 @@ try {
 
 	if (isset($brand, $model, $capacity, $year, $colour, $speed, $price)) {
     $result = $client->setData($brand, $model, $capacity, $year, $colour, $speed, $price);
-	print_r($result);
-  // echo "<p style='text-align: center;'>".$result."</p>";
+	
+	echo "<p style='text-align: center;'>".$result."</p>";
     }
 } catch (SoapFault $e) {
     echo $e->getMessage();

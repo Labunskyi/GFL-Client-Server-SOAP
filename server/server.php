@@ -1,8 +1,12 @@
 <?php
 class registerCars {
+	
+	public function __construct() {
+		$this->connect = new PDO ("mysql:host=localhost;dbname=users;charset=utf8", 'root', '');
+	}
+	
     function setData($brand, $model, $capacity, $year, $colour, $speed, $price) {
 
-        $this->connect = new PDO ("mysql:host=localhost;dbname=users;charset=utf8", 'root', '') ;
         $sqlQuery = "INSERT INTO car (brand, model, capacity, year, colour, speed, price) VALUES ('$brand', '$model', '$capacity', '$year',
 		'$colour', '$speed', '$price')";
         $result = $this->connect->query($sqlQuery) ;
@@ -11,7 +15,7 @@ class registerCars {
     }
 	
 	function setCar($carid, $name, $payment){
-		$this->connect = new PDO ("mysql:host=localhost;dbname=users;charset=utf8", 'root', '') ;
+	
         $sqlQuery = "INSERT INTO `order` (`carid`, `name`, `payment`) VALUES ('$carid', '$name', '$payment')";
         $result = $this->connect->query($sqlQuery) ;
        
@@ -21,7 +25,6 @@ class registerCars {
 
     function getCars() {
 
-        $this->connect = new PDO ("mysql:host=localhost;dbname=users;charset=utf8", 'root', '') ;
         $sqlQuery = "SELECT * FROM car";
         $result = $this->connect->query($sqlQuery);    
         
@@ -33,7 +36,6 @@ class registerCars {
     }
 	
 	function getCar($id) {
-		$this->connect = new PDO ("mysql:host=localhost;dbname=users;charset=utf8", 'root', '') ;	
 		
 		$sqlQuery = "SELECT * FROM car where carid = '$id'";
         $result = $this->connect->query($sqlQuery);    
@@ -44,7 +46,21 @@ class registerCars {
         }
         return $resultArray;
 		
-		
+	}
+	
+	public function findCar($brand, $model, $capacity, $year, $colour, $speed, $price) {
+        
+        $sqlQuery = "SELECT * from `car` WHERE `brand` LIKE '%{$brand}%' AND `model` LIKE '%{$model}%' 
+        AND `capacity` LIKE '%{$capacity}%' AND `year` LIKE '%{$year}%' AND `colour` LIKE '%{$colour}%' 
+        AND `speed` LIKE '%{$speed}%' AND `price` LIKE '%{$price}%'";
+        $result = $this->connect->query($sqlQuery);
+        
+		$resultArray = array ();
+		while ($row = $result->fetchAll(PDO::FETCH_OBJ) ) {
+			$resultArray[] = $row;
+        }
+        
+        return $resultArray;
 	}
 }
 

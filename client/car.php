@@ -82,7 +82,7 @@ try {
 		<form class="col-md-4" method="post" action="" style="padding-left: 0px;">
 		  <div class="form-group">
 			<input type="hidden" name="carid" value="<?=$id?>">
-			<input type="text" class="form-control" name="name" placeholder="Your name">
+			<input type="text" class="form-control" name="name" placeholder="Your full name">
 			
 		  </div>
 		  <div class="form-group">

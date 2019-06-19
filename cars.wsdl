@@ -18,6 +18,17 @@ Julien Blitte
 	xmlns="http://schemas.xmlsoap.org/wsdl/">
 <!-- definition of datatypes -->
 	<types>
+        <xsd:schema targetNamespace="http://schema.example.com">
+            <xsd:complexType name="resultArray">
+                <xsd:complexContent>
+                    <xsd:restriction base="SOAP-ENC:Array">
+                        <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="xsd:string[]" />
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+        </xsd:schema>
+    </types>
+	<types>
 	<schema targetNamespace="us.world_corp.my_soap_forum.xsd" xmlns="http://www.w3.org/2000/10/XMLSchema">
 		<element name="brand">
 		<complexType><all><element name="value" type="string" /></all></complexType>
@@ -85,6 +96,15 @@ Julien Blitte
 	<part name='name' type='xsd:name'/>
 	<part name='payment' type='xsd:payment'/>
 	</message>
+	<message name='findCar'>
+	<part name='brand' type='xsd:brand'/>
+	<part name='model' type='xsd:model'/>
+	<part name='capacity' type='xsd:capacity'/>
+	<part name='year' type='xsd:year'/>
+	<part name='colour' type='xsd:colour'/>
+	<part name='speed' type='xsd:speed'/>
+	<part name='price' type='xsd:price'/>
+	</message>
 <!-- server's services -->
 	<portType name='my SOAP forum'>
 		<operation name='setData'>
@@ -101,6 +121,10 @@ Julien Blitte
 		</operation>
 		<operation name='setCar'>
 		<input message='tns:setCar'/>
+		<output message='tns:returns_result'/>
+		</operation>
+		<operation name='findCar'>
+		<input message='tns:findCar'/>
 		<output message='tns:returns_result'/>
 		</operation>
 	</portType>
@@ -124,6 +148,11 @@ Julien Blitte
 		</operation>
 		<operation name='setCar'>
 		<soap:operation soapAction='urn:xmethods-delayed-quotes#setCar'/>
+		<input><soap:body use='encoded' namespace='urn:xmethods-delayed-quotes' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/></input>
+		<output><soap:body use='encoded' namespace='urn:xmethods-delayed-quotes' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/></output>
+		</operation>
+		<operation name='findCar'>
+		<soap:operation soapAction='urn:xmethods-delayed-quotes#findCar'/>
 		<input><soap:body use='encoded' namespace='urn:xmethods-delayed-quotes' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/></input>
 		<output><soap:body use='encoded' namespace='urn:xmethods-delayed-quotes' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/></output>
 		</operation>
