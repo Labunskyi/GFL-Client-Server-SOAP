@@ -1,61 +1,137 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<definitions name="Cars"
-             targetNamespace="http://gfl-client-server-soap.local/"
-             xmlns="http://schemas.xmlsoap.org/wsdl/"
-             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-             xmlns:tns="http://www.examples.com/wsdl/HelloService.wsdl"
-             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-             xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding"
-             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<?xml version="1.0" encoding ="utf-8"?>
+<!-- 
+(c) World Corp
+2019-06-19
+let you post/retrieve online message by SOAP protocol
 
-    <wsdl:types>
-        <xsd:schema targetNamespace="http://schema.example.com">
-            <xsd:complexType name="resultArray">
-                <xsd:complexContent>
-                    <xsd:restriction base="SOAP-ENC:Array">
-                        <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="xsd:string[]" />
-                    </xsd:restriction>
-                </xsd:complexContent>
-            </xsd:complexType>
-        </xsd:schema>
-    </wsdl:types>
-
-
-    <message name="getUsersResponse">
-        <part name="Result" type="tns:resultArray"/>
-    </message>
-
-    <message name="getDataRequest">
-        <part name="brand" type="xsd:string"/>
-        <part name="model" type="xsd:string"/>
-		<part name="capacity" type="xsd:string"/>
-		<part name="year" type="xsd:string"/>
-		<part name="colour" type="xsd:string"/>
-		<part name="speed" type="xsd:string"/>
-		<part name="price" type="xsd:string"/>
-    </message>
-    <message name="getDataResponse">
-        <part name="Result" type="tns:string"/>
-    </message>
-
-    <portType name="PortType">
-        <operation name="getUsers">
-            <output message="tns:getUsersResponse"/>
-        </operation>
-        <operation name="setData">
-            <input message="tns:getDataRequest"/>
-            <output message="tns:getDataResponse"/>
-        </operation>
-    </portType>
-
-    <binding name="Binding" type="tns:PortType">
-        <operation name="getUsers"/>
-        <operation name="setData"/>
-    </binding>
-
-    <service name="UserService">
-        <port name="UserPort" binding="Binding">
-            <soap:address location="http://gfl-client-server-soap.local/server/server.php"/>
-        </port>
-    </service>
+Online WSDL 1.1 SOAP generator 0.2
+Julien Blitte
+ -->
+<definitions name="let you post/retrieve online message by SOAP protocol"
+	targetNamespace="us.world_corp.my_soap_forum.wsdl"
+	xmlns:tns="us.world_corp.my_soap_forum.wsdl"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:xsd1="us.world_corp.my_soap_forum.xsd"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns="http://schemas.xmlsoap.org/wsdl/">
+<!-- definition of datatypes -->
+	<types>
+	<schema targetNamespace="us.world_corp.my_soap_forum.xsd" xmlns="http://www.w3.org/2000/10/XMLSchema">
+		<element name="brand">
+		<complexType><all><element name="value" type="string" /></all></complexType>
+		</element>
+		<element name="model">
+		<complexType><all><element name="value" type="string" /></all></complexType>
+		</element>
+		<element name="capacity">
+		<complexType><all><element name="value" type="string" /></all></complexType>
+		</element>
+		<element name="year">
+		<complexType><all><element name="value" type="string" /></all></complexType>
+		</element>
+		<element name="colour">
+		<complexType><all><element name="value" type="string" /></all></complexType>
+		</element>
+		<element name="speed">
+		<complexType><all><element name="value" type="string" /></all></complexType>
+		</element>
+		<element name="price">
+		<complexType><all><element name="value" type="string" /></all></complexType>
+		</element>
+		<element name="result">
+		<complexType><all><element name="value" type="string" /></all></complexType>
+		</element>
+		<element name="id">
+		<complexType><all><element name="value" type="string" /></all></complexType>
+		</element>
+		<element name="carid">
+		<complexType><all><element name="value" type="string" /></all></complexType>
+		</element>
+		<element name="name">
+		<complexType><all><element name="value" type="string" /></all></complexType>
+		</element>
+		<element name="payment">
+		<complexType><all><element name="value" type="string" /></all></complexType>
+		</element>
+		<element name="void">
+		<complexType><sequence></sequence></complexType>
+		</element>
+	</schema>
+	</types>
+<!-- response messages -->
+	<message name='returns_result'>
+	<part name='result' type='xsd:result'/>
+	</message>
+<!-- request messages -->
+	<message name='setData'>
+	<part name='brand' type='xsd:brand'/>
+	<part name='model' type='xsd:model'/>
+	<part name='capacity' type='xsd:capacity'/>
+	<part name='year' type='xsd:year'/>
+	<part name='colour' type='xsd:colour'/>
+	<part name='speed' type='xsd:speed'/>
+	<part name='price' type='xsd:price'/>
+	</message>
+	<message name='getCars'>
+	<part name='void' type='xsd:void'/>
+	</message>
+	<message name='getCar'>
+	<part name='id' type='xsd:id'/>
+	</message>
+	<message name='setCar'>
+	<part name='carid' type='xsd:carid'/>
+	<part name='name' type='xsd:name'/>
+	<part name='payment' type='xsd:payment'/>
+	</message>
+<!-- server's services -->
+	<portType name='my SOAP forum'>
+		<operation name='setData'>
+		<input message='tns:setData'/>
+		<output message='tns:returns_result'/>
+		</operation>
+		<operation name='getCars'>
+		<input message='tns:getCars'/>
+		<output message='tns:returns_result'/>
+		</operation>
+		<operation name='getCar'>
+		<input message='tns:getCar'/>
+		<output message='tns:returns_result'/>
+		</operation>
+		<operation name='setCar'>
+		<input message='tns:setCar'/>
+		<output message='tns:returns_result'/>
+		</operation>
+	</portType>
+<!-- server encoding -->
+	<binding name='my SOAP forum_webservices' type='tns:my SOAP forum'>
+	<soap:binding style='rpc' transport='http://schemas.xmlsoap.org/soap/http'/>
+		<operation name='setData'>
+		<soap:operation soapAction='urn:xmethods-delayed-quotes#setData'/>
+		<input><soap:body use='encoded' namespace='urn:xmethods-delayed-quotes' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/></input>
+		<output><soap:body use='encoded' namespace='urn:xmethods-delayed-quotes' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/></output>
+		</operation>
+		<operation name='getCars'>
+		<soap:operation soapAction='urn:xmethods-delayed-quotes#getCars'/>
+		<input><soap:body use='encoded' namespace='urn:xmethods-delayed-quotes' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/></input>
+		<output><soap:body use='encoded' namespace='urn:xmethods-delayed-quotes' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/></output>
+		</operation>
+		<operation name='getCar'>
+		<soap:operation soapAction='urn:xmethods-delayed-quotes#getCar'/>
+		<input><soap:body use='encoded' namespace='urn:xmethods-delayed-quotes' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/></input>
+		<output><soap:body use='encoded' namespace='urn:xmethods-delayed-quotes' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/></output>
+		</operation>
+		<operation name='setCar'>
+		<soap:operation soapAction='urn:xmethods-delayed-quotes#setCar'/>
+		<input><soap:body use='encoded' namespace='urn:xmethods-delayed-quotes' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/></input>
+		<output><soap:body use='encoded' namespace='urn:xmethods-delayed-quotes' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/></output>
+		</operation>
+	</binding>
+<!-- access to service provider -->
+	<service name='exemple'>
+	<port name='exemple_0' binding='my SOAP forum_webservices'>
+	<soap:address location='http://gfl-client-server-soap.local/server/server.php'/>
+	</port>
+	</service>
 </definitions>

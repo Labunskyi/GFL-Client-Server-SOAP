@@ -1,15 +1,25 @@
 <?php
-class registerUsers {
+class registerCars {
     function setData($brand, $model, $capacity, $year, $colour, $speed, $price) {
 
         $this->connect = new PDO ("mysql:host=localhost;dbname=users;charset=utf8", 'root', '') ;
         $sqlQuery = "INSERT INTO car (brand, model, capacity, year, colour, speed, price) VALUES ('$brand', '$model', '$capacity', '$year',
 		'$colour', '$speed', '$price')";
         $result = $this->connect->query($sqlQuery) ;
+
         return "Success! All data sent to database!";
     }
+	
+	function setCar($carid, $name, $payment){
+		$this->connect = new PDO ("mysql:host=localhost;dbname=users;charset=utf8", 'root', '') ;
+        $sqlQuery = "INSERT INTO `order` (`carid`, `name`, `payment`) VALUES ('$carid', '$name', '$payment')";
+        $result = $this->connect->query($sqlQuery) ;
+       
+        return "Success! You buy this car!";
+		
+	}
 
-    function getUsers() {
+    function getCars() {
 
         $this->connect = new PDO ("mysql:host=localhost;dbname=users;charset=utf8", 'root', '') ;
         $sqlQuery = "SELECT * FROM car";
@@ -19,12 +29,25 @@ class registerUsers {
 		while ($row = $result->fetchAll(PDO::FETCH_OBJ) ) {
 			$resultArray[] = $row;
         }
-        
         return $resultArray;
-        
     }
+	
+	function getCar($id) {
+		$this->connect = new PDO ("mysql:host=localhost;dbname=users;charset=utf8", 'root', '') ;	
+		
+		$sqlQuery = "SELECT * FROM car where carid = '$id'";
+        $result = $this->connect->query($sqlQuery);    
+        
+        $resultArray = array ();
+		while ($row = $result->fetchAll(PDO::FETCH_OBJ) ) {
+			$resultArray[] = $row;
+        }
+        return $resultArray;
+		
+		
+	}
 }
 
 $server = new SoapServer("http://gfl-client-server-soap.local/cars.wsdl");
-$server->setClass("registerUsers");
+$server->setClass("registerCars");
 $server->handle();
