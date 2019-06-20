@@ -96,14 +96,7 @@ try {
 			<b><?=$error?></b>
 		</div>
 		<div class="form-group">
-			
-			<select class="form-control" name="colour">
-				<option >Please select colour</option>
-				<option value="white" name="cash">White</option>
-				<option value="red" name="cash">Red</option>
-				<option value="black" name="cash">Black</option>
-				<option value="blue" name="cash">Blue</option>
-			</select>
+			<input type="text" class="form-control" name="colour" placeholder="Colour">
 		</div>
 		<div class="form-group">
 			<input type="text" class="form-control" name="speed" placeholder="Max speed">
