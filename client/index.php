@@ -1,4 +1,5 @@
 <?php
+include ('../config.php');
 function treatment($data) {
     htmlspecialchars(stripslashes(trim($data)));
     return $data;
@@ -15,7 +16,7 @@ if($_POST) {
 
 }
 
-$client = new SoapClient("http://gfl-client-server-soap.local/cars.wsdl", array('cache_wsdl' => WSDL_CACHE_NONE));
+$client = new SoapClient(WSDL, array('cache_wsdl' => WSDL_CACHE_NONE));
 try {
 
 	if (isset($brand, $model, $capacity, $year, $colour, $speed, $price)) {

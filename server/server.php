@@ -2,7 +2,8 @@
 class registerCars {
 	
 	public function __construct() {
-		$this->connect = new PDO ("mysql:host=localhost;dbname=users;charset=utf8", 'root', '');
+		include ('../config.php');
+		$this->connect = new PDO ("mysql:host=" . HOST . ";dbname=" . DB_NAME . ";charset=utf8", USER, PASSWORD);
 	}
 	
     function setData($brand, $model, $capacity, $year, $colour, $speed, $price) {
