@@ -18,11 +18,13 @@ $client = new SoapClient("http://gfl-client-server-soap.local/cars.wsdl", array(
 
 try {
     $result = $client->getCars();
+
 	$error = '';
 	if (isset($brand, $model, $capacity, $year, $colour, $speed, $price)) {
 		if (strlen($year) !== 0) {
 			$find = $client->findCar($brand, $model, $capacity, $year, $colour, $speed, $price);
-			
+			//print_r($find);
+			//die;
 		} else { $error = "Error! Fill the year field please"; }
 	}
 	
@@ -51,7 +53,7 @@ try {
 		<table class="table table-bordered">
 		<thead>
 			<tr>	
-				<th scope="col">id</th>
+				<th scope="col">Id</th>
 				<th scope="col">Brand</th>
 				<th scope="col">Model</th>
 				<th scope="col"></th>
@@ -91,10 +93,17 @@ try {
 			<input type="text" class="form-control" name="year" placeholder="Year">
 		</div>
 		<div style="color: red;">
-			<?=$error?>
+			<b><?=$error?></b>
 		</div>
 		<div class="form-group">
-			<input type="text" class="form-control" name="colour" placeholder="Colour">
+			
+			<select class="form-control" name="colour">
+				<option >Please select colour</option>
+				<option value="white" name="cash">White</option>
+				<option value="red" name="cash">Red</option>
+				<option value="black" name="cash">Black</option>
+				<option value="blue" name="cash">Blue</option>
+			</select>
 		</div>
 		<div class="form-group">
 			<input type="text" class="form-control" name="speed" placeholder="Max speed">
@@ -127,13 +136,13 @@ try {
 						<td><?=$r->Model?></td>
 						<td><?=$r->Year?></td>
 						<td><?=$r->Capacity?></td>
-						<td><?=$r->Colour?></td>
+						<td><?=$r->Color?></td>
 						<td><?=$r->Speed?></td>
 						<td><?=$r->Price?>$</td>
 					</tr>
 			<?php	}
 			}
-		}
+		} 
 		?>
 
 		</table>

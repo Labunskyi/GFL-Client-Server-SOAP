@@ -56,7 +56,13 @@ try {
 			<input type="text" class="form-control" name="year" placeholder="Year">
 		</div>
 		<div class="form-group">
-			<input type="text" class="form-control" name="colour" placeholder="Colour">
+			<select class="form-control" name="colour">
+				<option >Please select colour</option>
+				<option value="1" name="cash">White</option>
+				<option value="2" name="cash">Red</option>
+				<option value="3" name="cash">Black</option>
+				<option value="4" name="cash">Blue</option>
+			</select>
 		</div>
 		<div class="form-group">
 			<input type="text" class="form-control" name="speed" placeholder="Max speed">

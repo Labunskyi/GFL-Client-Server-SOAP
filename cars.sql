@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Июн 18 2019 г., 15:52
+-- Время создания: Июн 20 2019 г., 12:24
 -- Версия сервера: 10.1.37-MariaDB
 -- Версия PHP: 7.3.0
 
@@ -44,13 +44,33 @@ CREATE TABLE `car` (
 --
 
 INSERT INTO `car` (`CarId`, `Brand`, `Model`, `Capacity`, `Year`, `Colour`, `Speed`, `Price`) VALUES
-(1, 'Mersedes', 'S600', '', 0, '', 0, 0),
-(2, 'Mersedes', 'S600', '', 0, '', 0, 0),
-(3, 'Nissan', 'Primera', '', 0, '', 0, 0),
-(4, 'Mersedes', 'S600', '3.0', 0, '', 0, 0),
-(5, 'Mersedes', 'S600', '3.0', 2016, 'black', 0, 0),
-(6, 'Nissan', 'S600', '3.0', 2016, 'black', 0, 0),
-(7, 'Mersedes', 'S600', '3.0', 2016, 'black', 200, 50000);
+(1, 'Mersedes', 'S600', '6.0', 2017, '1', 250, 100000),
+(2, 'BMW', '130', '2.0', 2001, '2', 200, 2000),
+(3, 'Mersedes', '100', '2.0', 2017, '3', 200, 50000),
+(4, 'Nissan', 'Primera', '2.0', 2016, '4', 200, 30000),
+(5, 'Opel', 'Vectra', '2.0', 2010, '1', 200, 30000),
+(6, 'BMW', '230', '2.3', 2010, '1', 200, 10000);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `colour`
+--
+
+CREATE TABLE `colour` (
+  `ColourId` int(100) NOT NULL,
+  `Color` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Дамп данных таблицы `colour`
+--
+
+INSERT INTO `colour` (`ColourId`, `Color`) VALUES
+(1, 'white'),
+(2, 'red'),
+(3, 'black'),
+(4, 'blue');
 
 -- --------------------------------------------------------
 
@@ -62,22 +82,15 @@ CREATE TABLE `order` (
   `OrderId` int(100) NOT NULL,
   `CarId` int(100) NOT NULL,
   `Name` varchar(100) NOT NULL,
-  `Payment` enum('cash','credit card') DEFAULT NULL
+  `Payment` enum('cash','credit card') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
 --
--- Структура таблицы `users`
+-- Дамп данных таблицы `order`
 --
 
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `name` varchar(30) COLLATE utf8_bin NOT NULL,
-  `password` text COLLATE utf8_bin NOT NULL,
-  `email` varchar(255) COLLATE utf8_bin NOT NULL,
-  `userType` varchar(10) COLLATE utf8_bin NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+INSERT INTO `order` (`OrderId`, `CarId`, `Name`, `Payment`) VALUES
+(1, 5, 'Vladimir Labunskyi', 'credit card');
 
 --
 -- Индексы сохранённых таблиц
@@ -90,16 +103,16 @@ ALTER TABLE `car`
   ADD PRIMARY KEY (`CarId`);
 
 --
+-- Индексы таблицы `colour`
+--
+ALTER TABLE `colour`
+  ADD PRIMARY KEY (`ColourId`);
+
+--
 -- Индексы таблицы `order`
 --
 ALTER TABLE `order`
   ADD PRIMARY KEY (`OrderId`);
-
---
--- Индексы таблицы `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT для сохранённых таблиц
@@ -109,19 +122,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `car`
 --
 ALTER TABLE `car`
-  MODIFY `CarId` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `CarId` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT для таблицы `colour`
+--
+ALTER TABLE `colour`
+  MODIFY `ColourId` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `order`
 --
 ALTER TABLE `order`
-  MODIFY `OrderId` int(100) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `OrderId` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

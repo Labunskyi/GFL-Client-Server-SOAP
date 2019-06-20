@@ -25,7 +25,7 @@ class registerCars {
 
     function getCars() {
 
-        $sqlQuery = "SELECT * FROM car";
+        $sqlQuery = "SELECT * FROM car INNER JOIN colour ON car.colour = colour.colourid ORDER BY carid ASC";
         $result = $this->connect->query($sqlQuery);    
         
         $resultArray = array ();
@@ -37,7 +37,7 @@ class registerCars {
 	
 	function getCar($id) {
 		
-		$sqlQuery = "SELECT * FROM car where carid = '$id'";
+		$sqlQuery = "SELECT * FROM car INNER JOIN colour ON car.colour = colour.colourid where carid = '$id'";
         $result = $this->connect->query($sqlQuery);    
         
         $resultArray = array ();
@@ -50,11 +50,11 @@ class registerCars {
 	
 	public function findCar($brand, $model, $capacity, $year, $colour, $speed, $price) {
         
-        $sqlQuery = "SELECT * from `car` WHERE `brand` LIKE '%{$brand}%' AND `model` LIKE '%{$model}%' 
-        AND `capacity` LIKE '%{$capacity}%' AND `year` LIKE '%{$year}%' AND `colour` LIKE '%{$colour}%' 
+        $sqlQuery = "SELECT car.Carid, car.Brand, car.Model, car.Capacity, car.Year, car.Speed, car.Price, colour.Color FROM `car` INNER JOIN colour ON car.Colour = colour.Colourid WHERE `brand` LIKE '%{$brand}%' AND `model` LIKE '%{$model}%' 
+        AND `capacity` LIKE '%{$capacity}%' AND `year` = '$year' AND `color` LIKE '%{$colour}%' 
         AND `speed` LIKE '%{$speed}%' AND `price` LIKE '%{$price}%'";
         $result = $this->connect->query($sqlQuery);
-        
+		
 		$resultArray = array ();
 		while ($row = $result->fetchAll(PDO::FETCH_OBJ) ) {
 			$resultArray[] = $row;

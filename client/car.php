@@ -68,7 +68,7 @@ try {
 						<td><?=$r->Model?></td>
 						<td><?=$r->Year?></td>
 						<td><?=$r->Capacity?></td>
-						<td><?=$r->Colour?></td>
+						<td><?=$r->Color?></td>
 						<td><?=$r->Speed?></td>
 						<td><?=$r->Price?>$</td>
 					</tr>
